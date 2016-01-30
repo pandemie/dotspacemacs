@@ -80,7 +80,7 @@ values."
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -261,6 +261,9 @@ layers configuration. You are free to put any user code."
   (setq evil-escape-key-sequence "kj")
   (linum-relative-mode 1)
   (line-number-mode 1)
+  (define-key evil-hybrid-state-map (kbd "C-h") 'delete-backward-char)
+  (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
+  (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
