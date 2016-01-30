@@ -215,7 +215,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -261,8 +261,6 @@ layers configuration. You are free to put any user code."
   (beacon-mode 1)
   (set-variable 'ycmd-server-command '("python" "/home/schachma/ycmd/ycmd"))
   (setq evil-escape-key-sequence "kj")
-  (linum-relative-mode 1)
-  (line-number-mode 1)
   (define-key evil-hybrid-state-map (kbd "C-h") 'delete-backward-char)
   (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
   (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
