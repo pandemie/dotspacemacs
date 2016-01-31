@@ -259,7 +259,7 @@ layers configuration. You are free to put any user code."
 
   (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
   (beacon-mode 1)
-  (set-variable 'ycmd-server-command '("python" "/home/schachma/ycmd/ycmd"))
+  (set-variable 'ycmd-server-command `("python" ,(expand-file-name "~/ycmd/ycmd")))
   (setq evil-escape-key-sequence "kj")
   (define-key evil-hybrid-state-map (kbd "C-h") 'delete-backward-char)
   (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
