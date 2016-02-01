@@ -266,6 +266,11 @@ layers configuration. You are free to put any user code."
   (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
   (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-variable 'ycmd-global-config (expand-file-name "~/global_config.py"))(require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+	(let ((inhibit-read-only t))
+	  (ansi-color-apply-on-region (point-min) (point-max))))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
