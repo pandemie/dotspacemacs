@@ -267,6 +267,7 @@ layers configuration. You are free to put any user code."
   (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
   (setq-default dotspacemacs-configuration-layers
 				'((spell-checking :variables spell-checking-enable-by-default nil)))
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
