@@ -265,6 +265,8 @@ layers configuration. You are free to put any user code."
   (define-key evil-hybrid-state-map (kbd "C-h") 'delete-backward-char)
   (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
   (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
+  (setq-default dotspacemacs-configuration-layers
+				'((spell-checking :variables spell-checking-enable-by-default nil)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
