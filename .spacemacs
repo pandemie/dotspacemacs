@@ -257,7 +257,7 @@ layers configuration. You are free to put any user code."
   (setq-default c-basic-offset 4
                 tab-width 4
                 indent-tabs-mode t)
-
+  (set-variable 'ycmd-global-config "/home/dima/global_config.py")
   (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
   (beacon-mode 1)
   (set-variable 'ycmd-server-command `("python" ,(expand-file-name "~/ycmd/ycmd")))
