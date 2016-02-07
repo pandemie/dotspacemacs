@@ -1,5 +1,7 @@
 * dotspacemacs
  My .spacemacs. For the full experience you need 
+- make sure this repo is in `~/dotspacemacs` or adjust
+  `dotspacemacs-configuration-layer-path` accordingly.
 - to set the keyboard layout
 #+BEGIN_SRC shell
 setxkbmap us -option ctrl:nocaps
@@ -7,6 +9,5 @@ setxkbmap us -option ctrl:nocaps
 - install ycmd
 - link to out of tree stuff:
 #+BEGIN_SRC shell
-ln -s ~/dotspacemacs/+mylayers ~/.emacs.d/private/+mylayers
 ln -s ~/Dropbox/config.el ~/config.el
 #+END_SRC
