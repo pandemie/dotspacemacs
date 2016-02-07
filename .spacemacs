@@ -44,6 +44,7 @@ values."
      dockerfile
      ess
      octave
+     trello
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -259,16 +260,22 @@ layers configuration. You are free to put any user code."
   (setq-default c-basic-offset 4
                 tab-width 4
                 indent-tabs-mode t)
-  (set-variable 'ycmd-global-config "/home/dima/global_config.py")
+
   (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
   (beacon-mode 1)
+
   (set-variable 'ycmd-server-command `("python" ,(expand-file-name "~/ycmd/ycmd")))
+  (set-variable 'ycmd-global-config (expand-file-name "~/global_config.py"))
+
   (setq evil-escape-key-sequence "kj")
+
   (define-key evil-hybrid-state-map (kbd "C-h") 'delete-backward-char)
   (define-key evil-hybrid-state-map (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
   (define-key evil-hybrid-state-map (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-  (set-variable 'ycmd-global-config (expand-file-name "~/global_config.py"))(require 'ansi-color)
+
+  (require 'ansi-color)
   (defun colorize-compilation-buffer ()
 	(let ((inhibit-read-only t))
 	  (ansi-color-apply-on-region (point-min) (point-max))))
@@ -287,17 +294,20 @@ layers configuration. You are free to put any user code."
            "* Brithday of %^{Name: }\n%^{Date}t\n%?")
 		  ("e" "Event" entry (file "~/Dropbox/org/events.org")
            "* %?\n\n%^{Date and Time:}T\nEntery date: %U")))
-  (setq org-agenda-files (list "~/Dropbox/org/notes.org"
-                               "~/Dropbox/org/todo.org"
-                               "~/Dropbox/org/birthdays.org"
-							   "~/Dropbox/org/events.org"))
+
   ;; make sure timestamps are in english
   (setq system-time-locale "C")
+
   ;; Make movement keys work like they should
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
+  (defun my-nop (&rest r) :ok)
+  (advice-add 'orgtrello-controller-migrate-user-setup :override #'my-nop)
+
+  (when (file-exists-p "~/config.el") (load-file "~/config.el"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -317,7 +327,7 @@ layers configuration. You are free to put any user code."
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(fci-rule-color "#3E3D31")
+ '(fci-rule-color "#3E3D31" t)
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-symbol-colors
    (--map
@@ -344,6 +354,7 @@ layers configuration. You are free to put any user code."
  '(nrepl-message-colors
    (quote
 	("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+ '(org-agenda-files (quote ("~/Dropbox/org/todo.org")))
  '(package-selected-packages
    (quote
 	(zenburn-theme monokai-theme solarized-theme jabber disaster cmake-mode clang-format smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter evil-magit diff-hl ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline smooth-scrolling restart-emacs rainbow-delimiters popwin popup persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line quelpa package-build use-package which-key bind-key bind-map evil spacemacs-theme)))
