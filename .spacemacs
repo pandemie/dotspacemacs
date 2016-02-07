@@ -273,6 +273,26 @@ layers configuration. You are free to put any user code."
 	(let ((inhibit-read-only t))
 	  (ansi-color-apply-on-region (point-min) (point-max))))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks")
+           "* TODO %?\n\nEntry date: %U")
+          ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+           "* %?")
+          ("n" "Note" entry (file "~/Dropbox/org/notes.org")
+           "* %?\n\nEntery date: %U")
+          ("b" "Birthday" entry (file "~/Dropbox/org/birthdays.org")
+           "* Brithday of %^{Name: }\n%^{Date}t\n%?")
+		  ("e" "Event" entry (file "~/Dropbox/org/events.org")
+           "* %?\n\n%^{Date and Time:}T\nEntery date: %U")))
+  (setq org-agenda-files (list "~/Dropbox/org/notes.org"
+                               "~/Dropbox/org/todo.org"
+                               "~/Dropbox/org/birthdays.org"
+							   "~/Dropbox/org/events.org"))
+  ;; make sure timestamps are in english
+  (setq system-time-locale "C")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
