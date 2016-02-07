@@ -293,6 +293,11 @@ layers configuration. You are free to put any user code."
 							   "~/Dropbox/org/events.org"))
   ;; make sure timestamps are in english
   (setq system-time-locale "C")
+  ;; Make movement keys work like they should
+  (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+  (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+  (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
