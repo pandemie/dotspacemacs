@@ -7,7 +7,4 @@
 setxkbmap us -option ctrl:nocaps
 #+END_SRC
 - install ycmd
-- link to out of tree stuff:
-#+BEGIN_SRC shell
-ln -s ~/Dropbox/config.el ~/config.el
-#+END_SRC
+- make sure Dropbox is there
