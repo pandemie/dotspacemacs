@@ -1,7 +1,7 @@
 * dotspacemacs
  My .spacemacs. For the full experience you need 
-- make sure this repo is in `~/dotspacemacs` or adjust
-  `dotspacemacs-configuration-layer-path` accordingly.
+- make sure this repo is in ~~/dotspacemacs~ or adjust
+  ~dotspacemacs-configuration-layer-path~ accordingly.
 - to set the keyboard layout
 #+BEGIN_SRC shell
 setxkbmap us -option ctrl:nocaps
