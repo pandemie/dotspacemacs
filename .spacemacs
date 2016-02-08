@@ -314,4 +314,7 @@ layers configuration. You are free to put any user code."
   (custom-set-faces
    '(jabber-chat-prompt-local ((t (:foreground "gold" :weight bold))))
    '(jabber-roster-user-online ((t (:foreground "gold" :slant normal :weight bold)))))
+
+  (setq jabber-history-enabled 't)
+  (setq jabber-history-dir "~/Dropbox/jabber-history")
   )
