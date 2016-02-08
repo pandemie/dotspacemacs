@@ -316,5 +316,12 @@ layers configuration. You are free to put any user code."
    '(jabber-roster-user-online ((t (:foreground "gold" :slant normal :weight bold)))))
 
   (setq jabber-history-enabled 't)
+  (spacemacs|define-custom-layout "jabber"
+	:binding "j"
+	:body
+	(jabber-connect-all)
+	(switch-to-buffer "*-jabber-roster-*"))
+  (add-hook 'jabber-alert-message-hooks 'notify-jabber-notify)
+
   (setq jabber-history-dir "~/Dropbox/jabber-history")
   )
