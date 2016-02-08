@@ -315,7 +315,11 @@ layers configuration. You are free to put any user code."
    '(jabber-chat-prompt-local ((t (:foreground "gold" :weight bold))))
    '(jabber-roster-user-online ((t (:foreground "gold" :slant normal :weight bold)))))
 
+  (setq jabber-avatar-max-height 13)
+  (setq jabber-avatar-max-width 16)
+  (setq jabber-show-offline-contacts nil)
   (setq jabber-history-enabled 't)
+  (setq jabber-chat-buffer-show-avatar nil)
   (spacemacs|define-custom-layout "jabber"
 	:binding "j"
 	:body
