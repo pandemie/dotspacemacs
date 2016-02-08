@@ -307,6 +307,7 @@ layers configuration. You are free to put any user code."
 
   (defun my-nop (&rest r) :ok)
   (advice-add 'orgtrello-controller-migrate-user-setup :override #'my-nop)
+  (setq evil-move-beyond-eol 't)
 
   (when (file-exists-p "~/Dropbox/config.el") (load-file "~/Dropbox/config.el"))
   )
