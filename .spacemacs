@@ -310,4 +310,8 @@ layers configuration. You are free to put any user code."
   (setq evil-move-beyond-eol 't)
 
   (when (file-exists-p "~/Dropbox/config.el") (load-file "~/Dropbox/config.el"))
+
+  (custom-set-faces
+   '(jabber-chat-prompt-local ((t (:foreground "gold" :weight bold))))
+   '(jabber-roster-user-online ((t (:foreground "gold" :slant normal :weight bold)))))
   )
