@@ -46,6 +46,7 @@ values."
      octave
      trello
      unimpaired
+     shell
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -284,13 +285,16 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
+  (spacemacs|disable-company org-mode)
+  (spacemacs|disable-company org-capture-mode)
+
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks")
            "* TODO %?\n\nEntry date: %U")
           ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-           "* %?")
+           "* %?\n\nEntry date: %U")
           ("n" "Notes" entry (file+datetree "~/Dropbox/org/notes.org")
-           "* %?")
+           "* %?\n\nEntry date: %U")
           ("b" "Birthday" entry (file "~/Dropbox/org/birthdays.org")
            "* Brithday of %^{Name: }\n%^{Date}t\n%?")
 		  ("e" "Event" entry (file "~/Dropbox/org/events.org")
@@ -312,6 +316,7 @@ layers configuration. You are free to put any user code."
   (when (file-exists-p "~/Dropbox/config.el") (load-file "~/Dropbox/config.el"))
 
   (custom-set-faces
+   '(font-lock-comment-face ((t (:foreground "#767477" :slant italic))))
    '(jabber-chat-prompt-local ((t (:foreground "gold" :weight bold))))
    '(jabber-roster-user-online ((t (:foreground "gold" :slant normal :weight bold)))))
 
