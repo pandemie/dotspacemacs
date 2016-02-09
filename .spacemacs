@@ -320,6 +320,22 @@ layers configuration. You are free to put any user code."
   (setq jabber-show-offline-contacts nil)
   (setq jabber-history-enabled 't)
   (setq jabber-chat-buffer-show-avatar nil)
+
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(jabber-auto-reconnect t)
+   '(jabber-avatar-verbose nil)
+   '(jabber-vcard-avatars-retrieve nil)
+   '(jabber-chat-buffer-format "*-jabber-%n-*")
+   '(jabber-history-enabled t)
+   '(jabber-mode-line-mode t)
+   '(jabber-roster-buffer "*-jabber-*")
+   '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
+   '(jabber-show-offline-contacts nil))
+
   (spacemacs|define-custom-layout "jabber"
 	:binding "j"
 	:body
