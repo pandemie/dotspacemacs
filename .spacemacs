@@ -188,7 +188,39 @@ layers configuration. You are free to put any user code."
                             "~/Dropbox/org/birthdays.org"
                             "~/Dropbox/org/gtd.org"
                             "~/Dropbox/org/journal.org"))
-    )
+
+	(setq org-agenda-custom-commands
+		  '(("w" "Agenda and Work-related tasks"
+			 ((agenda "")
+			  (tags-todo "WORK+TODO=\"NEXT\"")
+			  (tags-todo "WORK+TODO=\"WAITING\"")
+			  (tags-todo "WORK+TODO=\"TODO\"")
+			  ))
+			("p" "Agenda and private tasks"
+			 ((agenda "")
+			  (tags-todo "PRIVATE+TODO=\"NEXT\"")
+			  (tags-todo "PRIVATE+TODO=\"WAITING\"")
+			  (tags-todo "PRIVATE+TODO=\"TODO\"")
+			  ))
+			("o" "Agenda and private tasks"
+			 ((agenda "")
+			  (tags-todo "PRIVATE+TODO=\"WAITING\"")
+			  (tags-todo "WORK+TODO=\"WAITING\"")
+			  (tags-todo "WORK+TODO=\"NEXT\"")
+			  (tags-todo "PRIVATE+TODO=\"NEXT\"")
+			  ))
+			))
+
+	(setq org-todo-keyword-faces
+		  '(("TODO" . "pink")
+			("NEXT" . "red")
+			("APPT" . "yellow")
+			("STARTED" . "LightSkyBlue")
+			("WAITING" . "CornflowerBlue")))
+
+	(setq org-hide-leading-stars 't)
+	)
+
   (setq tramp-default-method "ssh")
   (setq tramp-default-user "schachma")
   (setq helm-buffer-max-length 50)
@@ -196,32 +228,4 @@ layers configuration. You are free to put any user code."
    'org-babel-load-languages
    '((python . t)))
 
-  (setq org-agenda-custom-commands
-  		'(("w" "Agenda and Work-related tasks"
-  		   ((agenda "")
-  			(tags-todo "WORK+TODO=\"NEXT\"")
-  			(tags-todo "WORK+TODO=\"WAITING\"")
-  			(tags-todo "WORK+TODO=\"TODO\"")
-			))
-		  ("p" "Agenda and private tasks"
-  		   ((agenda "")
-  			(tags-todo "PRIVATE+TODO=\"NEXT\"")
-  			(tags-todo "PRIVATE+TODO=\"WAITING\"")
-  			(tags-todo "PRIVATE+TODO=\"TODO\"")
-			))
-		  ("o" "Agenda and private tasks"
-  		   ((agenda "")
-  			(tags-todo "PRIVATE+TODO=\"WAITING\"")
-  			(tags-todo "WORK+TODO=\"WAITING\"")
-  			(tags-todo "WORK+TODO=\"NEXT\"")
-  			(tags-todo "PRIVATE+TODO=\"NEXT\"")
-			))
-		  ))
-
-  (setq org-todo-keyword-faces
-		'(("TODO" . "pink")
-		  ("NEXT" . "red")
-		  ("APPT" . "yellow")
-		  ("STARTED" . "LightSkyBlue")
-		  ("WAITING" . "CornflowerBlue")))
  )
