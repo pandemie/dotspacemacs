@@ -11,31 +11,47 @@ values."
    dotspacemacs-configuration-layer-path '("~/dotspacemacs")
    dotspacemacs-configuration-layers
    '(
-     auto-completion
-     emacs-lisp
-     git
-     org
-     (spell-checking :variables spell-checking-enable-by-default nil)
-     (syntax-checking :variables syntax-checking-enable-by-default nil)
-     version-control
-     c-c++
-     jabber
-     extra-langs
-     ycmd
-     ranger
-     themes-megapack
-     dockerfile
-     ess
-     octave
-     trello
-     unimpaired
-     shell
-     gnus
-     python
-     )
+	 auto-completion
+	 emacs-lisp
+	 git
+	 org
+	 (spell-checking :variables spell-checking-enable-by-default nil)
+	 (syntax-checking :variables syntax-checking-enable-by-default nil)
+	 version-control
+	 c-c++
+	 jabber
+	 extra-langs
+	 ycmd
+	 ranger
+	 themes-megapack
+	 dockerfile
+	 ess
+	 octave
+	 trello
+	 unimpaired
+	 shell
+	 gnus
+	 python
+	 search-engine
+	 spotify
+	 chrome
+	 ;; spacemacs-ivy
+	 command-log
+	 evil-snipe
+	 games
+	 xkcd
+	 emoji
+	 selectric
+	 ;; cscope
+	 )
    dotspacemacs-additional-packages '(
-                                      beacon
-                                      )
+									  beacon
+									  engine-mode
+									  fireplace
+									  openwith
+									  ;; ox-gfm
+									  (helm-spotify :location (recipe :fetcher github :repo "pandemie/helm-spotify" :branch "new_api"))
+									  )
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
 
@@ -56,19 +72,19 @@ values."
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'text-mode
    dotspacemacs-themes '(molokai
-                         spacemacs-dark
-                         lush
-                         monokai
-                         pastels-on-dark
-                         reverse
-                         soothe
-                         toxi)
+						 spacemacs-dark
+						 lush
+						 monokai
+						 pastels-on-dark
+						 reverse
+						 soothe
+						 toxi)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+							   :size 15
+							   :weight normal
+							   :width normal
+							   :powerline-scale 1.1)
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-leader-key "M-m"
    dotspacemacs-major-mode-leader-key ","
@@ -110,6 +126,7 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+  (setq exec-path-from-shell-check-startup-files nil)
   )
 
 (defun dotspacemacs/user-config ()
@@ -117,8 +134,8 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (setq-default c-basic-offset 4
-                tab-width 4
-                indent-tabs-mode t)
+				tab-width 4
+				indent-tabs-mode t)
 
   (add-to-list 'auto-mode-alist '("\\.launch$" . xml-mode))
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -136,8 +153,8 @@ layers configuration. You are free to put any user code."
 
   (require 'ansi-color)
   (defun colorize-compilation-buffer ()
-    (let ((inhibit-read-only t))
-      (ansi-color-apply-on-region (point-min) (point-max))))
+	(let ((inhibit-read-only t))
+	  (ansi-color-apply-on-region (point-min) (point-max))))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
   ;; make sure timestamps are in english
@@ -153,41 +170,43 @@ layers configuration. You are free to put any user code."
   (advice-add 'orgtrello-controller-migrate-user-setup :override #'my-nop)
   (setq evil-move-beyond-eol 't)
 
-  (when (file-exists-p "~/Dropbox/config.el") (load-file "~/Dropbox/config.el")) ;; stuff that requires absolute paths
-  (when (file-exists-p "~/Dropbox/jabber-config.el") (load-file "~/Dropbox/jabber-config.el"))
+  (setq my-private-config-file (concat user-dropbox-directory "config.el"))
+  (setq my-private-jabber-config-file (concat user-dropbox-directory "jabber-config.el"))
+  (when (file-exists-p my-private-config-file) (load-file my-private-config-file)) ;; stuff that requires absolute paths
+  (when (file-exists-p my-private-jabber-config-file) (load-file my-private-jabber-config-file))
 
   ;; start directory in windows
   (setq default-directory (concat (getenv "HOME") "/"))
 
   (with-eval-after-load 'org
-    (add-hook 'org-capture-mode-hook 'evil-insert-state)
+	(add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-    (spacemacs|disable-company org-mode)
-    (spacemacs|disable-company org-capture-mode)
-    (setq org-log-reschedule 'time)
-    (setq org-capture-templates
-          '(("i" "Inbox" entry (file+headline "~/Dropbox/org/gtd.org" "Inbox")
-             "* %?\nEntry date: %U")
+	(spacemacs|disable-company org-mode)
+	(spacemacs|disable-company org-capture-mode)
+	(setq org-log-reschedule 'time)
+	(setq org-capture-templates
+		  '(("i" "Inbox" entry (file+headline "~/Dropbox/org/gtd.org" "Inbox")
+			 "* %?\nEntry date: %U")
 			("s" "Someday" entry (file+headline "~/Dropbox/org/gtd.org" "Someday")
-             "* %?\nEntry date: %U")
-            ("t" "Task" entry (file+headline "~/Dropbox/org/gtd.org" "Tasks")
-             "* TODO %?\nEntry date: %U")
-            ("c" "Calendar" entry (file+headline "~/Dropbox/org/gtd.org" "Calendar")
-             "* %?\nEntry date: %U")
-            ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-             "* %?\nEntry date: %U")
-            ("b" "Birthday" entry (file+headline "~/Dropbox/org/birthdays.org" "Birthdays")
-             "* Brithday of %^{Name: }\n%^{Date}t%?")))
+			 "* %?\nEntry date: %U")
+			("t" "Task" entry (file+headline "~/Dropbox/org/gtd.org" "Tasks")
+			 "* TODO %?\nEntry date: %U")
+			("c" "Calendar" entry (file+headline "~/Dropbox/org/gtd.org" "Calendar")
+			 "* %?\nEntry date: %U")
+			("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+			 "* %?\nEntry date: %U")
+			("b" "Birthday" entry (file+headline "~/Dropbox/org/birthdays.org" "Birthdays")
+			 "* Brithday of %^{Name: }\n%^{Date}t%?")))
 
-    (setq org-refile-targets
-          '((nil :maxlevel . 1)
+	(setq org-refile-targets
+		  '((nil :maxlevel . 1)
 			("~/Dropbox/org/gtd.org" :tag . "proj")
-            (org-agenda-files :maxlevel . 1)))
+			(org-agenda-files :maxlevel . 1)))
 
-    (setq org-agenda-files (list
-                            "~/Dropbox/org/birthdays.org"
-                            "~/Dropbox/org/gtd.org"
-                            "~/Dropbox/org/journal.org"))
+	(setq org-agenda-files (list
+							"~/Dropbox/org/birthdays.org"
+							"~/Dropbox/org/gtd.org"
+							"~/Dropbox/org/journal.org"))
 
 	(setq org-agenda-custom-commands
 		  '(("w" "Agenda and Work-related tasks"
@@ -219,8 +238,11 @@ layers configuration. You are free to put any user code."
 			("WAITING" . "CornflowerBlue")))
 
 	(setq org-hide-leading-stars 't)
-	)
 
+	(spacemacs/set-leader-keys-for-major-mode 'org-mode
+	  "gg" 'org-preview-latex-fragment)
+	)
+  (setq bookmark-default-file (concat user-dropbox-directory "bookmarks"))
   (setq tramp-default-method "ssh")
   (setq tramp-default-user "schachma")
   (setq helm-buffer-max-length 50)
@@ -228,4 +250,23 @@ layers configuration. You are free to put any user code."
    'org-babel-load-languages
    '((python . t)))
 
- )
+  (setq browse-url-browser-function (quote browse-url-chromium)
+		browse-url-chromium-program "google-chrome")
+
+  (defengine spotify "https://play.spotify.com/search/%s")
+  (add-to-list 'search-engine-alist
+			   '(spotify
+				 :name "Spotify"
+				 :url "https://play.spotify.com/search/%s"))
+
+
+  (defengine leo "https://dict.leo.org/ende/index_de.html#/search=%s&searchLoc=0&resultOrder=basic&multiwordShowSingle=on")
+  (add-to-list 'search-engine-alist
+			   '(leo
+				 :name "Leo"
+				 :url "https://dict.leo.org/ende/index_de.html#/search=%s&searchLoc=0&resultOrder=basic&multiwordShowSingle=on"))
+
+  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+  (setq jabber-alert-presence-hooks nil)
+  (openwith-mode t)
+  )
