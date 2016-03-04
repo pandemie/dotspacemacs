@@ -37,7 +37,7 @@ values."
 	 chrome
 	 ;; spacemacs-ivy
 	 command-log
-	 evil-snipe
+	 ;; evil-snipe
 	 games
 	 xkcd
 	 emoji
@@ -49,8 +49,10 @@ values."
 									  engine-mode
 									  fireplace
 									  openwith
+									  evil-quickscope
 									  ;; ox-gfm
 									  (helm-spotify :location (recipe :fetcher github :repo "pandemie/helm-spotify" :branch "new_api"))
+									  (accelerate :location (recipe :fetcher wiki))
 									  )
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
@@ -241,6 +243,28 @@ layers configuration. You are free to put any user code."
 
 	(spacemacs/set-leader-keys-for-major-mode 'org-mode
 	  "gg" 'org-preview-latex-fragment)
+	;; (add-to-list org-publish-project-alist
+	;; 			 '("thesis"
+	;; 			   :base-directory "~/Dropbox/org/thesis"
+	;; 			   :publishing-directory "~/RASII/src/theses/schachmann"
+	;; 			   :include "thesis.txt"
+	;; 			   :publishing-function 'org-ascii-publish-to-ascii
+	;; 			   ))
+	(setq org-publish-project-alist
+		  '(("thesis"
+			 :base-directory "~/Dropbox/org/thesis"
+			 :base-extension "org"
+			 :publishing-directory "~/theses/schachmann"
+			 :publishing-function (org-ascii-publish-to-ascii)
+			 :html-preamble nil
+			 :html-postamble nil)
+			("thesis-html"
+			 :base-directory "~/Dropbox/org/thesis"
+			 :base-extension "org"
+			 :publishing-directory "/import/home/schachma/thesis"
+			 :publishing-function (org-html-publish-to-html)
+			 :html-preamble nil
+			 :html-postamble nil)))
 	)
   (setq bookmark-default-file (concat user-dropbox-directory "bookmarks"))
   (setq tramp-default-method "ssh")
@@ -269,4 +293,17 @@ layers configuration. You are free to put any user code."
   (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
   (setq jabber-alert-presence-hooks nil)
   (openwith-mode t)
+  (put 'narrow-to-page 'disabled nil)
+
+  (require 'accelerate)
+  (accelerate evil-previous-line 5)
+  (accelerate evil-next-line 5)
+  ;;  (accelerate backward-char 3)
+  ;;  (accelerate forward-char 3)
+  ;;  (accelerate dired-previous-line 2)
+  ;;  (accelerate dired-next-line 2)
+  ;;  (accelerate speedbar-prev 2)
+  ;;  (accelerate speedbar-next 2)
+  (add-to-list 'auto-mode-alist '("\\.eml\\'" . org-mode))
+  (global-evil-quickscope-mode 1)
   )
