@@ -83,7 +83,7 @@ values."
 						 toxi)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
-							   :size 15
+							   :size 16
 							   :weight normal
 							   :width normal
 							   :powerline-scale 1.1)
@@ -272,7 +272,9 @@ layers configuration. You are free to put any user code."
   (setq helm-buffer-max-length 50)
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((python . t)))
+   '((python . t)
+	 (sh . t)
+	 ))
 
   (setq browse-url-browser-function (quote browse-url-chromium)
 		browse-url-chromium-program "google-chrome")
@@ -306,4 +308,5 @@ layers configuration. You are free to put any user code."
   ;;  (accelerate speedbar-next 2)
   (add-to-list 'auto-mode-alist '("\\.eml\\'" . org-mode))
   (global-evil-quickscope-mode 1)
+  (global-evil-mc-mode  1)
   )
