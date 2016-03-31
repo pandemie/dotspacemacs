@@ -35,6 +35,7 @@ values."
 	 search-engine
 	 spotify
 	 chrome
+	 ;; semantic
 	 ;; spacemacs-ivy
 	 command-log
 	 ;; evil-snipe
@@ -73,7 +74,8 @@ values."
    dotspacemacs-startup-lists '(recents projects)
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'text-mode
-   dotspacemacs-themes '(molokai
+   dotspacemacs-themes '(spacemacs-dark
+                         molokai
 						 spacemacs-dark
 						 lush
 						 monokai
@@ -121,15 +123,15 @@ values."
    dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
    dotspacemacs-default-package-repository nil
    dotspacemacs-whitespace-cleanup 'changed
-   ))
+   )
 
-(defun dotspacemacs/user-init ()
-  "Initialization function for user code.
+  (defun dotspacemacs/user-init ()
+	"Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
-  (setq exec-path-from-shell-check-startup-files nil)
-  )
+	(setq exec-path-from-shell-check-startup-files nil)
+	))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -309,4 +311,25 @@ layers configuration. You are free to put any user code."
   (add-to-list 'auto-mode-alist '("\\.eml\\'" . org-mode))
   (global-evil-quickscope-mode 1)
   (global-evil-mc-mode  1)
+  (setq
+   ess-use-auto-complete nil
+   ;; ac-auto-show-menu 1
+   ;; ac-candidate-limit nil
+   ac-delay 5
+   ;; ac-disable-faces (quote (font-lock-comment-face font-lock-doc-face))
+   ;; ac-ignore-case 'smart
+   ;; ac-menu-height 10
+   ;; ac-quick-help-delay 1.5
+   ;; ac-quick-help-prefer-pos-tip t
+   ;; ac-use-quick-help nil
+   )
+  ;; (set-face-attribute 'default nil :height 170)
+  (defun sigint-r ()
+	  "kill send Ctrl+C to running R process."
+	  (interactive)
+	  (signal-process "R" 2))
+
+  (evil-leader/set-key "or" 'sigint-r)
+  (setq projectile-use-git-grep t)
+
   )
